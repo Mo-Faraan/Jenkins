@@ -26,6 +26,7 @@ Use agent { docker { image 'maven:3.9.6-eclipse-temurin-8' } } for containerized
 {set up volumes for using dependencies inter pipeline}
 
 example basic :
+```
 pipeline {
     agent { label 'your-agent' } // or docker { image '...' }
     environment { ... }          // optional env vars
@@ -43,6 +44,7 @@ pipeline {
         failure { ... }
     }
 }
+```
 
 
 Jenkins - docker agents :
@@ -55,7 +57,7 @@ This container:
 
 
 1. Maven_Pipeline : Set up a pipeline to pull, build and deploy to gitlab registry and set up email notis
-
+```
 pipeline {
     agent {
         docker {
@@ -119,12 +121,12 @@ pipeline {
         }
     }
 }
-
+```
 should install email extension plugin, should also set up credentials
 
 2. maven_pipeline 2:
 Pipeline which does sparse checkout of specific sub directory.
-
+```
 pipeline {
     agent any
     stages {
@@ -160,11 +162,11 @@ pipeline {
     }
    
 }
-
+```
 
 3. depProject :
 Pipeline to build a jar of 1 project and use it as dependency in another project
-
+```
 pipeline {
     agent {
         docker {
@@ -198,11 +200,11 @@ pipeline {
     }
    
 }
-
+```
 here we archive both jar and pom and build and install it in the 2nd pipeline.
 
 depProject 2 :
-
+```
 pipeline {
     agent {
         docker {
@@ -260,11 +262,11 @@ pipeline {
         }  
     }
 }
-
+```
 here we set up MAVEN_REPO = "${WORKSPACE}/.m2/repository" common maven repo for all builds.
 
 4. sample pipeline :
-
+```
 pipeline {
     agent {
         docker {
@@ -294,6 +296,5 @@ pipeline {
         }
     }
 }
- 
- 
+```
 
