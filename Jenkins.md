@@ -3,27 +3,27 @@
 - Jenkinsfile is the pipeline script stored inside the project repo.
 - Stages group steps logically.
 
-Steps are single tasks like sh 'mvn clean install' or checkout scm.
+- Steps are single tasks like sh 'mvn clean install' or checkout scm.
 - Declarative Pipeline:
-The most common, readable way to define CI/CD as code using the pipeline { ... } syntax.
+- The most common, readable way to define CI/CD as code using the pipeline { ... } syntax.
 - Stages and Steps:
 Pipelines are divided into stages (logical build steps) and steps (individual commands or actions).
 
-Agent:
+- Agent:
 The environment where pipeline steps run. Can be a physical/virtual machine or a Docker container.
-Top-level agent:
+- Top-level agent:
 Applies to all stages unless overridden.
-Stage-level agent:
+- Stage-level agent:
 Allows running specific stages on different agents or Docker images.
-Label-based agent:
+- Label-based agent:
 Use agent { label 'docker' } to target a node with a specific label.
-Docker agent:
+- Docker agent:
 Use agent { docker { image 'maven:3.9.6-eclipse-temurin-8' } } for containerized builds.
 
-{when using docker agent at the top level, each stage corresponds to individual components}
-{when using different agents for different stages, Each agent or agent block may use a different workspace directory (e.g., /workspace/job@2).}
-{can set MAVEN_REPO = "${WORKSPACE}/.m2/repository" variable and then run mvn install etc with -Dmaven.repo.local=$MAVEN_REPO argument}
-{set up volumes for using dependencies inter pipeline}
+- {when using docker agent at the top level, each stage corresponds to individual components}
+- {when using different agents for different stages, Each agent or agent block may use a different workspace directory (e.g., /workspace/job@2).}
+- {can set MAVEN_REPO = "${WORKSPACE}/.m2/repository" variable and then run mvn install etc with -Dmaven.repo.local=$MAVEN_REPO argument}
+- {set up volumes for using dependencies inter pipeline}
 
 example basic :
 ```
@@ -47,9 +47,9 @@ pipeline {
 ```
 
 
-Jenkins - docker agents :
-agent { docker { image 'maven:3.9.6-eclipse-temurin-17' } } spins a fresh container for the build.
-This container:
+- Jenkins - docker agents :
+- agent { docker { image 'maven:3.9.6-eclipse-temurin-17' } } spins a fresh container for the build.
+- This container:
 -Has a clean environment.
 -Is ephemeral (destroyed after build).
 -Shares workspace with the host via volume mount.
